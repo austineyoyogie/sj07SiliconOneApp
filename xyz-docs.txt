@@ -1,0 +1,2 @@
+
+https://flowbite.com/docs/components/jumbotron/#default-jumbotron

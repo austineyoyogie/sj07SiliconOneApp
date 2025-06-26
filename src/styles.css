@@ -1,0 +1,96 @@
+/* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap");
+@import url('node_modules/bootstrap/dist/css/bootstrap.min.css');
+:root {
+  --bs-blue: #0d6efd;
+  --bs-indigo: #6610f2;
+  --bs-purple: #6f42c1;
+  --bs-pink: #d63384;
+  --bs-red: #dc3545;
+  --bs-orange: #fd7e14;
+  --bs-yellow: #ffc107;
+  --bs-green: #198754;
+  --bs-teal: #20c997;
+  --bs-cyan: #0dcaf0;
+  --bs-white: #fff;
+  --bs-gray: #6c757d;
+  --bs-gray-dark: #343a40;
+  --bs-primary: #0d6efd;
+  --bs-secondary: #6c757d;
+  --bs-success: #198754;
+  --bs-info: #0dcaf0;
+  --bs-warning: #ffc107;
+  --bs-danger: #dc3545;
+  --bs-light: #f8f9fa;
+  --bs-dark: #212529;
+  --bs-font-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
+}
+
+body {
+  font: 1rem/1.5 var(--bs-font-sans-serif);
+}
+a {
+  color: var(--bs-blue);
+}
+
+
+#footer {
+  margin-top: 0px;
+}
+#footer {
+  background: #212529;
+  border-top: 4px solid #212529;
+  font-size: 0.9em;
+  margin-top: 50px;
+  padding: 0;
+  position: relative;
+  clear: both;
+}
+html .text-color-light, html .text-light {
+  color: #FFF;
+}
+p {
+  color: #777;
+  line-height: 26px;
+  margin: 0 0 20px;
+}
+html .text-color-primary, html .text-primary {
+  color: #0088CC !important;
+}
+.fa-angle-right::before {
+  content: "\f105";
+}
+.fa, .fas {
+  font-weight: 900;
+}
+.fa, .far, .fas {
+  font-family: "Font Awesome 5 Free";
+}
+.fa, .fab, .fad, .fal, .far, .fas {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing:
+    antialiased;
+  display: inline-block;
+  font-style: normal;
+  font-variant:
+    normal;
+  text-rendering: auto;
+  line-height: 1;
+}
+#footer .footer-copyright {
+  background: #1c2023;
+}
+.social-icons {
+  margin: 0;
+  padding: 0;
+  width: auto;
+}
+.social-icons li {
+  display: inline-block;
+  margin: -1px 1px 0 0;
+  padding: 0;
+  border-radius: 100%;
+  overflow: visible;
+}

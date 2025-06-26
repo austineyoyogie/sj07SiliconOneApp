@@ -1,0 +1,151 @@
+<div class="container mx-auto px-4">
+
+<section class="bg-white dark:bg-gray-900">
+  <div class="py-2 px-4 mx-auto max-w-screen-xl lg:py-16">
+<!--    <div class="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-8 md:p-12 mb-8">-->
+<!--      <h1 class="text-gray-900 dark:text-white text-3xl md:text-5xl font-extrabold mb-2">How to quickly deploy a static website</h1>-->
+<!--      <p class="text-lg font-normal text-gray-500 dark:text-gray-400 mb-6">Static websites are now used to bootstrap lots of websites and are becoming the basis for a variety of tools that even influence both web designers and developers.</p>-->
+<!--    </div>-->
+  </div>
+</section>
+
+
+<section *ngIf="(loginState$ | async) as state" [ngSwitch]="state.dataState" class="bg-gray-50 dark:bg-gray-900">
+    <div *ngIf="!state.loginSuccess && !state.isUsingMfa" class="py-8 px-0 mx-auto max-w-screen-lg lg:py-16 grid lg:grid-cols-2 gap-8 lg:gap-16">
+      <div>
+        <div class="w-full lg:max-w-xl p-6 space-y-8 sm:p-8 bg-white rounded-lg shadow-xl dark:bg-gray-800">
+          <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+            Sign in to Flowbite
+          </h2>
+          <div *ngIf="state.dataState === DataState.ERROR" class="w-full lg:max-w-xl p-6 space-y-8 sm:p-8 bg-white rounded-lg shadow-xl dark:bg-gray-800" style="height: 60px; border-radius: 0;" role="alert">
+            {{ state.error }}
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+
+          <form #loginForm="ngForm" (ngSubmit)="login(loginForm)" class="mt-8 space-y-6">
+            <div>
+              <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
+              <input [disabled]="state.dataState === DataState.LOADING" ngModel type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required />
+            </div>
+            <div>
+              <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your password</label>
+              <input [disabled]="state.dataState === DataState.LOADING" ngModel type="password" name="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+            </div>
+            <div class="flex items-start">
+              <div class="flex items-center h-5">
+                <input id="remember" aria-describedby="remember" name="remember" type="checkbox" class="w-4 h-4 border-gray-300 rounded-sm bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600" required />
+              </div>
+              <div class="ms-3 text-sm">
+                <label for="remember" class="font-medium text-gray-500 dark:text-gray-400">Remember this device</label>
+              </div>
+              <a href="#" class="ms-auto text-sm font-medium text-blue-600 hover:underline dark:text-blue-500">Lost Password?</a>
+            </div>
+            <button [disabled]="state.dataState === DataState.LOADING || loginForm.invalid || loginForm.pristine" type="submit" class="w-full px-5 py-3 text-base font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 sm:w-auto dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+
+              <svg *ngIf="state.dataState === DataState.LOADING" aria-hidden="true" role="status" class="inline w-4 h-4 me-3 text-white animate-spin" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="#E5E7EB"/>
+                <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentColor"/>
+              </svg>
+              <span *ngIf="state.dataState === DataState.LOADING">Loading...</span>
+              <span *ngIf="!(state.dataState === DataState.LOADING)">Login to your account</span>
+            </button>
+            <div class="text-sm font-medium text-gray-900 dark:text-white">
+              Not registered yet? <a class="text-blue-600 hover:underline dark:text-blue-500">Create account</a>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="flex flex-col justify-center bg-white p-6 space-y-8 sm:p-8">
+        <p class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-2xl dark:text-white">We invest in the world’s potential.</p>
+        <p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">Here at Flow bite we focus on markets where technology, innovation, and capital can unlock long-term value and drive economic growth.</p>
+        <a href="#" class="text-blue-600 dark:text-blue-500 hover:underline font-medium text-lg inline-flex items-center">Read more about our app
+          <svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+</div>
+
+
+<!--  <div class="max-w-lg mx-auto">-->
+<!--    <section *ngIf="(loginState$ | async) as state" [ngSwitch]="state.dataState">-->
+<!--      <div *ngIf="!state.loginSuccess && !state.isUsingMfa" class="album by-5 text-body-secondary">-->
+<!--&lt;!&ndash;        <div class="container">&ndash;&gt;-->
+<!--&lt;!&ndash;          <div class="row py-lg-5">&ndash;&gt;-->
+<!--&lt;!&ndash;            <div class="col-lg-6 col-md-8 mx-auto">&ndash;&gt;-->
+<!--&lt;!&ndash;              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="modal-dialog modal-md">&ndash;&gt;-->
+<!--&lt;!&ndash;                  <div class="modal-content">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div class="modal-header">&ndash;&gt;-->
+<!--&lt;!&ndash;                      <h1 class="modal-title fs-5" id="exampleModalLabel">Already have an account!</h1>&ndash;&gt;-->
+<!--&lt;!&ndash;                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--                    <div *ngIf="state.dataState === DataState.ERROR" class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show" style="height: 60px; border-radius: 0;" role="alert">-->
+<!--                      {{ state.error }}-->
+<!--                      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>-->
+<!--                    </div>-->
+<!--&lt;!&ndash;                    <div class="modal-body" style="background: #FFF;">&ndash;&gt;-->
+
+<!--&lt;!&ndash;                      <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <div class="mb-lg-3 mt-3">&ndash;&gt;-->
+<!--&lt;!&ndash;                          <label for="email" class="form-label">Email:</label>&ndash;&gt;-->
+<!--&lt;!&ndash;                          <input [disabled]="state.dataState === DataState.LOADING" ngModel type="email" id="email" name="email" placeholder="Enter email" class="form-control" required>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <div class="mb-lg-3 mt-3">&ndash;&gt;-->
+<!--&lt;!&ndash;                          <label for="password" class="form-label">Password</label>&ndash;&gt;-->
+<!--&lt;!&ndash;                          <input [disabled]="state.dataState === DataState.LOADING" ngModel type="password" id="password" placeholder="Enter email" name="password" class="form-control" required>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <div class="form-check mb-lg-3">&ndash;&gt;-->
+<!--&lt;!&ndash;                          <label class="form-check-label">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <input class="form-check-input" type="checkbox" name="remember"> Remember me&ndash;&gt;-->
+<!--&lt;!&ndash;                          </label>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <div class="d-flex justify-content-start mb-4">&ndash;&gt;-->
+<!--&lt;!&ndash;                          <button [disabled]="state.dataState === DataState.LOADING || loginForm.invalid || loginForm.pristine" type="submit" class="btn btn-primary">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <span *ngIf="state.dataState === DataState.LOADING" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="margin-right: 5px;"></span>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <span *ngIf="state.dataState === DataState.LOADING">Loading...</span>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <span *ngIf="!(state.dataState === DataState.LOADING)">Log in</span>&ndash;&gt;-->
+<!--&lt;!&ndash;                          </button>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                      </form>&ndash;&gt;-->
+
+<!--                      <div class="max-w-md mx-auto">-->
+<!--                      <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">-->
+<!--                        <div class="mb-5">-->
+<!--                          <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>-->
+<!--                          <input [disabled]="state.dataState === DataState.LOADING" ngModel type="email" id="email" name="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@flowbite.com" required />-->
+<!--                        </div>-->
+<!--                        <div class="mb-5">-->
+<!--                          <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your password</label>-->
+<!--                          <input [disabled]="state.dataState === DataState.LOADING" ngModel type="password" id="password" name="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />-->
+<!--                        </div>-->
+<!--                        <div class="flex items-start mb-5">-->
+<!--                          <div class="flex items-center h-5">-->
+<!--                            <input id="remember" type="checkbox" value="" class="w-4 h-4 border border-gray-300 rounded-sm bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800" required />-->
+<!--                          </div>-->
+<!--                          <label for="remember" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Remember me</label>-->
+<!--                        </div>-->
+
+<!--                        <button [disabled]="state.dataState === DataState.LOADING || loginForm.invalid || loginForm.pristine" type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-flex items-center">-->
+<!--                          <svg *ngIf="state.dataState === DataState.LOADING" aria-hidden="true" role="status" class="inline w-4 h-4 me-3 text-white animate-spin" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">-->
+<!--                            <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="#E5E7EB"/>-->
+<!--                            <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentColor"/>-->
+<!--                          </svg>-->
+<!--                          <span *ngIf="state.dataState === DataState.LOADING">Loading...</span>-->
+<!--                          <span *ngIf="!(state.dataState === DataState.LOADING)">Log in</span>-->
+<!--                        </button>-->
+
+<!--&lt;!&ndash;                        <button [disabled]="state.dataState === DataState.LOADING || loginForm.invalid || loginForm.pristine" type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">&ndash;&gt;-->
+<!--&lt;!&ndash;                          <span *ngIf="state.dataState === DataState.LOADING" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="margin-right: 5px;"></span>&ndash;&gt;-->
+<!--&lt;!&ndash;                          <span *ngIf="state.dataState === DataState.LOADING">Loading...</span>&ndash;&gt;-->
+<!--&lt;!&ndash;                          <span *ngIf="!(state.dataState === DataState.LOADING)">Log in</span>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </button>&ndash;&gt;-->
+<!--                      </form>-->
+<!--                      </div>-->
+
+<!--      </div>-->
+<!--    </section>-->
+<!--  </div>-->
+
